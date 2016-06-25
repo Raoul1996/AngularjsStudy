@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app="App">
+<head>
+    <meta charset="UTF-8">
+    <title>qoderapi</title>
+    <script>
+        apiHost='http://api.neuqst.qoder.cn'
+    </script>
+</head>
+<body ng-controller="mainCtrl">
+{{name}}
+<from>
+    <p>username<input type="text"   ng-model="name"/></p>
+    <p>password<input type="text"  ng-model="pwd"/></p>
+    <p>login_in<input type="button"  ng-click="reg()"/></p>
+    <p>register<input type="text"></p>
+</from>
+<script src="angular-1.3.0.js"></script>
+<script>
+    angular.module('App',[])
+            .controller('mainCtrl',function ($scope,$http) {
+//                $scope.name="Qoder";
+                $scope.reg=function () {
+//                    console.log($scope.name);
+//                    console.log($scope.pwd);
+                    var options={
+                        email:$scope.name,
+                        password:$scope.pwd
+                    };
+
+                    const token=localStorage.getItem('token');
+                    fetch(apiHost+'/home/my',{
+                        headers: {
+                            Token:token
+                        }
+                    })
+                            .then(function (res) {
+                                return res.json();
+                            })
+                            .then(function (json) {
+                                console.log(json);
+                            })
+                }
+            })
+</script>
+</body>
+</html>
